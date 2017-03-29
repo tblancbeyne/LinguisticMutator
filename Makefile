@@ -2,13 +2,13 @@ SOURCES = main.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 TARGET = main
-LIBS = 
+LIBS =
 
 %.o: %.cpp
-	$(CXX) -std=c++14 -o $@ -c $< -Wall 
+	$(CXX) -g -std=c++14 -o $@ -c $< -Wall
 
 all: $(OBJECTS)
-	$(CXX) -std=c++14 -o $(TARGET) $(OBJECTS) $(LIBS) -Wall
+	$(CXX) -g -std=c++14 -o $(TARGET) $(OBJECTS) $(LIBS) -Wall
 
 x: all
 	./$(TARGET)
