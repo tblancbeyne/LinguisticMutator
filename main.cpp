@@ -94,14 +94,14 @@ int main(int argc, char *argv[])
     }
 
     // Next chars
-    for(std::size_t n = 0; n < 10000; ++n)
+    while(text.size() < 10000)
     {
         int prevprevprev = {0};
         std::array<float,27> cumuledProbabilities{0};
         currLetter = letter(gen)/10000.0;
-        cumuledProbabilities[0] = probabilities[prev][prevprev][0];
+        cumuledProbabilities[0] = probabilities[prevprev][prev][0];
         for (std::size_t i = 1; i < probabilities.size(); i++)
-            cumuledProbabilities[i] = cumuledProbabilities[i-1] + probabilities[prev][prevprev][i];
+            cumuledProbabilities[i] = cumuledProbabilities[i-1] + probabilities[prevprev][prev][i];
         if (cumuledProbabilities.at(cumuledProbabilities.size()-1) == 0)
         {
             text.pop_back();
