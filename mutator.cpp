@@ -61,7 +61,6 @@ namespace mtt
 
         // First char
         float currLetter = letter(gen)/1000000000.0;
-        std::cout << currLetter << std::endl;
         std::array<float,27> cumuledProbabilities{0};
         for (std::size_t i = 0; i < probabilities.size(); i++)
         {
@@ -74,26 +73,21 @@ namespace mtt
                         proba += probabilities[i][j][k][l];
                 }
             }
-            std::cout << proba << std::endl;
             cumuledProbabilities[i] = proba;
-            std::cout << cumuledProbabilities[i] << std::endl;
         }
         for (std::size_t i = 1; i < cumuledProbabilities.size(); i++)
         {
             cumuledProbabilities[i] += cumuledProbabilities[i-1];
-            std::cout << cumuledProbabilities[i] << std::endl;
         }
         for (std::size_t i = 0; i < cumuledProbabilities.size(); i++)
             cumuledProbabilities[i] /= cumuledProbabilities.at(cumuledProbabilities.size()-1);
         for (std::size_t i = 0; i < cumuledProbabilities.size(); i++)
         {
-            std::cout << cumuledProbabilities[i] << std::endl;
             if (cumuledProbabilities[i] > currLetter)
             {
                 text.push_back(i);
                 prev = i;
                 break;
-                std::cout << i << std::endl;
             }
         }
 
