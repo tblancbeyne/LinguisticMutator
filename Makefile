@@ -1,4 +1,4 @@
-SOURCES = main.cpp
+SOURCES = main.cpp mutator.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 TARGET = main
