@@ -20,37 +20,14 @@ namespace mtt
                         probabilities[i][j][k][l] = letter(gen)/1000000000.0;
     }
 
-    Mutator::Mutator(const std::string & filename)
+    Mutator::Mutator(const std::string & filename) : probabilities{}
     {
-        std::ifstream ifile(filename);
+        _setProbas(filename);
+    }
 
-        probabilities = {0};
-
-        std::size_t count = 3;
-        char c = ifile.get();
-        auto prevprevprevindex = c == ' ' ? 26 : static_cast<int>(c) - 97;
-        c = ifile.get();
-        auto prevprevindex = c == ' ' ? 26 : static_cast<int>(c) - 97;
-        c = ifile.get();
-        auto previndex = c == ' ' ? 26 : static_cast<int>(c) - 97;
-
-        while (ifile.get(c)) {
-            count++;
-            auto index = c == ' ' ? 26 : static_cast<int>(c) - 97;
-            probabilities[prevprevprevindex][prevprevindex][previndex][index]++;
-            prevprevprevindex = prevprevindex;
-            prevprevindex = previndex;
-            previndex = index;
-        }
-
-        for (std::size_t i = 0; i < probabilities.size(); ++i)
-            for (std::size_t j = 0; j < probabilities.size(); ++j)
-                for (std::size_t k = 0; k < probabilities.size(); ++k)
-                    for (std::size_t l = 0; l < probabilities.size(); ++l)
-                    {
-                        probabilities[i][j][k][l] /= count;
-                    }
-
+    void Mutator::addText(const std::string & filename)
+    {
+        _setProbas(filename);
     }
 
     std::vector<char> Mutator::createText(const std::size_t n)
@@ -181,6 +158,40 @@ namespace mtt
 
         return text;
     }
+
+    void Mutator::_setProbas(const std::string & filename)
+    {
+        std::ifstream ifile(filename);
+
+        probabilities = {0};
+
+        std::size_t count = 3;
+        char c = ifile.get();
+        auto prevprevprevindex = c == ' ' ? 26 : static_cast<int>(c) - 97;
+        c = ifile.get();
+        auto prevprevindex = c == ' ' ? 26 : static_cast<int>(c) - 97;
+        c = ifile.get();
+        auto previndex = c == ' ' ? 26 : static_cast<int>(c) - 97;
+
+        while (ifile.get(c)) {
+            count++;
+            auto index = c == ' ' ? 26 : static_cast<int>(c) - 97;
+            probabilities[prevprevprevindex][prevprevindex][previndex][index]++;
+            prevprevprevindex = prevprevindex;
+            prevprevindex = previndex;
+            previndex = index;
+        }
+
+        for (std::size_t i = 0; i < probabilities.size(); ++i)
+            for (std::size_t j = 0; j < probabilities.size(); ++j)
+                for (std::size_t k = 0; k < probabilities.size(); ++k)
+                    for (std::size_t l = 0; l < probabilities.size(); ++l)
+                    {
+                        probabilities[i][j][k][l] /= count;
+                    }
+
+    }
+
 }
 
 std::ostream& operator<<(std::ostream& os, const std::vector<char>& text)
