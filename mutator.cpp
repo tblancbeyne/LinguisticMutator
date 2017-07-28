@@ -124,7 +124,7 @@ namespace mtt
         }
 
         // Next chars
-        while(text.size() < 10000)
+        while(text.size() < n)
         {
             int prevprevprevprev = 0;
             std::array<float,27> cumuledProbabilities{0};
