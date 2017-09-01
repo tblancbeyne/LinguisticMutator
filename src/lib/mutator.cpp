@@ -58,6 +58,7 @@ namespace mtt
         }
         for (std::size_t i = 0; i < cumuledProbabilities.size(); i++)
             cumuledProbabilities[i] /= cumuledProbabilities.at(cumuledProbabilities.size()-1);
+
         for (std::size_t i = 0; i < cumuledProbabilities.size(); i++)
         {
             if (cumuledProbabilities[i] > currLetter)

@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        mut.addText("./rechercheDuTempsPerdu.txt");
+        mut.addText("../data/rechercheDuTempsPerdu.txt");
     }
 
     std::vector<char> text;
